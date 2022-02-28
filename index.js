@@ -2,6 +2,8 @@
     let dateObj;
     let currentYear;
     let currentMonth;
+    let prevYear;
+    let dateMatrix = [];
 
     
 
@@ -45,13 +47,20 @@
         RenderMonthYear(modifyNumber(currentYear), modifyNumber(currentMonth));
     }
 
-    const setButtonEvent = () => {
+    const setEvent = () => {
         prevBtn = document.querySelector('.prev');
         nextBtn = document.querySelector('.next');
+        YearMonth = document.querySelector('.month');
 
+        YearMonth.addEventListener('click', ()=> {
+            initYearMonth();
+            RenderMonthYear(currentYear, currentMonth);
+        })
         nextBtn.addEventListener('click', moveNextMonth);
         prevBtn.addEventListener('click', movePrevMonth);
     }
+
+    
 
 
 
@@ -61,7 +70,7 @@
 
 
     initYearMonth();
-    setButtonEvent();
+    setEvent();
     RenderMonthYear(currentYear, currentMonth);
 
     
