@@ -32,6 +32,7 @@
         }
 
         RenderMonthYear(modifyNumber(currentYear), modifyNumber(currentMonth));
+        RenderDate();
         
     }
 
@@ -44,6 +45,7 @@
             currentMonth = parseInt(currentMonth) - 1;
         }
         RenderMonthYear(modifyNumber(currentYear), modifyNumber(currentMonth));
+        RenderDate();
     }
 
     const setEvent = () => {
@@ -54,6 +56,7 @@
         YearMonth.addEventListener('click', ()=> {
             initYearMonth();
             RenderMonthYear(currentYear, currentMonth);
+            RenderDate();
         })
         nextBtn.addEventListener('click', moveNextMonth);
         prevBtn.addEventListener('click', movePrevMonth);
@@ -66,6 +69,8 @@
         let prevLastDate;
         let prevLastDay;
         let index = 0;
+
+        dateMatrix = Array.from(Array(5), ()=> Array(7).fill('')); // 매트릭스 다시 초기화
 
         if(currentMonth == 1) {
             prevMonth = 12;
@@ -112,6 +117,12 @@
         let wrapper = document.querySelector('.dates-wrapper');
         let weekDiv;
         let dateDiv;
+
+        // 노드 초기화작업
+        while(wrapper.hasChildNodes()) {
+            wrapper.removeChild(wrapper.firstChild);
+        }
+        
         for(let i = 0; i< dateMatrix.length; i++) {
             weekDiv = document.createElement('div');
             weekDiv.classList.add('week');

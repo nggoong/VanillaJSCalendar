@@ -93,3 +93,7 @@ html {
     color:red;
 }
 
+.prev-month-date {
+    opacity: 0.3;
+}
+
