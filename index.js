@@ -2,7 +2,7 @@
     let dateObj;
     let currentYear;
     let currentMonth;
-    let dateMatrix = Array.from(Array(5), ()=> Array(7).fill(''));
+    let dateMatrix = Array.from(Array(6), ()=> Array(7).fill(''));
 
     
 
@@ -70,7 +70,7 @@
         let prevLastDay;
         let index = 0;
 
-        dateMatrix = Array.from(Array(5), ()=> Array(7).fill('')); // 매트릭스 다시 초기화
+        dateMatrix = Array.from(Array(6), ()=> Array(7).fill('')); // 매트릭스 다시 초기화
 
         if(currentMonth == 1) {
             prevMonth = 12;
@@ -97,18 +97,17 @@
         let prevIndex = setPrevDate();
         let currentDateObj = new Date(currentYear, currentMonth, 0);
         let currentLastDate = currentDateObj.getDate();
-        for(let i = prevIndex; i< dateMatrix[0].length; i++) {
+        for(let i = prevIndex; i < dateMatrix[0].length; i++) {
             dateMatrix[0][i] = dateValue;
             dateValue += 1;
         }
-        for(let i = 1; i<5; i++) {
+        for(let i = 1; i < 6; i++) {
             for(let j = 0; j < dateMatrix[i].length; j++) {
                 dateMatrix[i][j] = dateValue;
                 dateValue += 1;
-                if(dateValue > currentLastDate) break;
+                if(dateValue > currentLastDate) return prevIndex;
             }
         }
-
         return prevIndex;
     }
 
@@ -122,11 +121,10 @@
         while(wrapper.hasChildNodes()) {
             wrapper.removeChild(wrapper.firstChild);
         }
-        
+
         for(let i = 0; i< dateMatrix.length; i++) {
             weekDiv = document.createElement('div');
             weekDiv.classList.add('week');
-            console.log('hello')
             for(let j = 0; j < dateMatrix[i].length; j++) {
                 dateDiv = document.createElement('div');
                 if(i == 0 && j < prevIndex) {
