@@ -104,9 +104,29 @@
             }
         }
 
-        console.log(dateMatrix);
-        
-        
+        return prevIndex;
+    }
+
+    const RenderDate = () => {
+        let prevIndex = setCurrentDate();
+        let wrapper = document.querySelector('.dates-wrapper');
+        let weekDiv;
+        let dateDiv;
+        for(let i = 0; i< dateMatrix.length; i++) {
+            weekDiv = document.createElement('div');
+            weekDiv.classList.add('week');
+            console.log('hello')
+            for(let j = 0; j < dateMatrix[i].length; j++) {
+                dateDiv = document.createElement('div');
+                if(i == 0 && j < prevIndex) {
+                    dateDiv.classList.add('prev-month-date');
+                }
+                dateDiv.classList.add('date');
+                dateDiv.innerText = dateMatrix[i][j];
+                weekDiv.appendChild(dateDiv);
+            }
+            wrapper.appendChild(weekDiv);
+        }
     }
 
 
@@ -119,7 +139,7 @@
     initYearMonth();
     setEvent();
     RenderMonthYear(currentYear, currentMonth);
-    setCurrentDate();
+    RenderDate();
 
     
     
