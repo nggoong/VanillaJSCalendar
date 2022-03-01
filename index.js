@@ -2,8 +2,7 @@
     let dateObj;
     let currentYear;
     let currentMonth;
-    let prevYear;
-    let dateMatrix = [];
+    let dateMatrix = Array.from(Array(5), ()=> Array(7).fill(''));
 
     
 
@@ -60,7 +59,55 @@
         prevBtn.addEventListener('click', movePrevMonth);
     }
 
-    
+    const setPrevDate = () => {
+        let prevDateObj;
+        let prevMonth;
+        let prevYear;
+        let prevLastDate;
+        let prevLastDay;
+        let index = 0;
+
+        if(currentMonth == 1) {
+            prevMonth = 12;
+            prevYear = currentYear - 1;
+        }
+        else {
+            prevMonth = currentMonth - 1;
+            prevYear = currentYear;
+        }
+
+        prevDateObj = new Date(prevYear, prevMonth, 0);
+        prevLastDate = prevDateObj.getDate();
+        prevLastDay = prevDateObj.getDay();
+
+        for(let i = prevLastDate - prevLastDay; i <= prevLastDate; i++) {
+            dateMatrix[0][index] = i;
+            index += 1;
+        }
+        return index;
+    }
+
+    const setCurrentDate = () => {
+        let dateValue = 1;
+        let prevIndex = setPrevDate();
+        let currentDateObj = new Date(currentYear, currentMonth, 0);
+        let currentLastDate = currentDateObj.getDate();
+        for(let i = prevIndex; i< dateMatrix[0].length; i++) {
+            dateMatrix[0][i] = dateValue;
+            dateValue += 1;
+        }
+        for(let i = 1; i<5; i++) {
+            for(let j = 0; j < dateMatrix[i].length; j++) {
+                dateMatrix[i][j] = dateValue;
+                dateValue += 1;
+                if(dateValue > currentLastDate) break;
+            }
+        }
+
+        console.log(dateMatrix);
+        
+        
+    }
 
 
 
@@ -72,6 +119,7 @@
     initYearMonth();
     setEvent();
     RenderMonthYear(currentYear, currentMonth);
+    setCurrentDate();
 
     
     
